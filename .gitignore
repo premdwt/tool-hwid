@@ -1,0 +1,7 @@
+# Mengabaikan folder hasil compile/build
+bin/
+obj/
+
+# Mengabaikan file hasil download installer di folder running
+*.exe
+*.pdb
