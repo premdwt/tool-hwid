@@ -1,28 +1,80 @@
 # ⚡ DWT Utility (KerenCleaner)
 
 <p align="center">
-  <strong>All-in-One Windows Tool — Disk Cleaner, System Repair, Post-Install Downloader, dan Media Downloader.</strong><br>
-  <em>Native, ringan, cepat, dan dibuat untuk Windows 10/11.</em>
+  <img src="https://img.shields.io/github/v/release/premdwt/tool-hwid?style=for-the-badge&label=Release" alt="Latest Release">
+  <img src="https://img.shields.io/github/stars/premdwt/tool-hwid?style=for-the-badge" alt="GitHub Stars">
+  <img src="https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?style=for-the-badge&logo=windows">
+  <img src="https://img.shields.io/badge/Built%20with-C%23%20.NET%2010.0-512BD4?style=for-the-badge&logo=dotnet">
 </p>
 
 <p align="center">
-  <strong>Bahasa:</strong> C# (.NET 10.0) &nbsp;|&nbsp;
-  <strong>Platform:</strong> Windows x64 &nbsp;|&nbsp;
-  <strong>Author:</strong> P R E M
+  <strong>All-in-One Windows Tool — Disk Cleaner, System Repair, Post-Install Downloader, dan Media Downloader.</strong><br>
+  <em>Native, ringan, cepat. Satu file EXE, tanpa install .NET.</em>
+</p>
+
+<p align="center">
+  <a href="https://github.com/premdwt/tool-hwid/releases/latest"><strong>⬇️ Download Latest Release</strong></a>
+  &nbsp;•&nbsp;
+  <a href="#-cara-pakai-cepat">Cara Pakai</a>
+  &nbsp;•&nbsp;
+  <a href="#-daftar-menu-lengkap">Daftar Menu</a>
+  &nbsp;•&nbsp;
+  <a href="#-changelog">Changelog</a>
+</p>
+
+---
+
+## ⬇️ Download
+
+| | |
+|---|---|
+| **Latest Release** | [**Download KerenCleaner.exe**](https://github.com/premdwt/tool-hwid/releases/latest) |
+| **Versi Saat Ini** | `v1.0.0` |
+| **Ukuran** | ~36 MB (self-contained single file) |
+| **Butuh** | Windows 10/11 x64 + Run as Administrator |
+
+> Tidak perlu clone repo atau install .NET SDK — cukup download EXE dari tab **Releases**, lalu jalankan sebagai admin.
+
+<p align="center">
+  <a href="https://github.com/premdwt/tool-hwid/releases/latest">
+    <img src="https://img.shields.io/badge/Download-KerenCleaner.exe-2ea44f?style=for-the-badge&logo=github" alt="Download EXE">
+  </a>
 </p>
 
 ---
 
 ## 📌 Apa itu DWT Utility?
 
-**DWT Utility** (project name: `KerenCleaner`) adalah aplikasi **CLI (Command Line Interface)** berbasis **C# (.NET 10.0)** untuk merawat, mengoptimalkan, dan mengotomasi tugas-tugas Windows — dari bersih-bersih sampah disk, perbaikan sistem, download installer pasca-reinstall, hingga download media dari YouTube & TikTok.
+**DWT Utility** (project: `KerenCleaner`) adalah aplikasi **CLI** berbasis **C# (.NET 10.0)** untuk merawat, mengoptimalkan, dan mengotomasi Windows — dari bersih-bersih sampah disk, perbaikan sistem, download installer pasca-reinstall, hingga download media YouTube & TikTok.
 
-Aplikasi ini:
-- Berjalan **native** memakai API Windows (`shell32`, `user32`, Registry, dll.)
-- Otomatis meminta hak **Administrator** saat pertama dijalankan
-- Punya menu interaktif dengan animasi idle, progress bar, dan pop-up sukses Windows
+- Berjalan **native** via API Windows (`shell32`, `user32`, Registry, dll.)
+- Auto-request hak **Administrator** saat pertama dijalankan
+- Menu interaktif + animasi idle, progress bar, pop-up sukses Windows
+- **Open source** — https://github.com/premdwt/tool-hwid
 
-**Repository GitHub:** https://github.com/premdwt/tool-hwid
+---
+
+## 🚀 Cara Pakai Cepat
+
+```
+1. Download KerenCleaner.exe  →  tab Releases
+2. Klik kanan                 →  Run as administrator
+3. Pilih menu (0–14)          →  selesai!
+```
+
+File hasil kerja (video, MP3, installer) tersimpan di **folder yang sama** dengan EXE.
+
+---
+
+## ✨ Highlight Fitur
+
+| Kategori | Highlight |
+|----------|-----------|
+| 🧹 **Cleaner** | Temp, Recycle Bin, browser cache (semua profil), COD Warzone cache |
+| 🔍 **Analyzer** | Scan folder besar, startup registry + status enable/disable |
+| 🛠️ **System** | Flush DNS, DISM, SFC, HWID checker, RAM trim |
+| 📦 **Post-Install** | Auto-download Discord, DirectX SDK, NVIDIA App |
+| 🎥 **Media** | YouTube **1080p+audio**, TikTok no watermark, ekstrak **MP3** |
 
 ---
 
@@ -50,52 +102,48 @@ Aplikasi ini:
 
 ## 🎥 Media Downloader (Menu 14)
 
-Modul ini memakai **yt-dlp** sebagai engine download. File pendukung di-download otomatis ke folder yang sama dengan aplikasi.
-
-### Sub-menu
+Engine: **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** + **[FFmpeg](https://ffmpeg.org/)** (auto-download saat pertama dipakai).
 
 | Opsi | Fitur | Output |
 |------|-------|--------|
-| `1` | YouTube Video | MP4 **1080p + audio** (video & audio di-merge via FFmpeg) |
+| `1` | YouTube Video | MP4 **1080p + audio** (merge via FFmpeg) |
 | `2` | TikTok Video | MP4 tanpa watermark |
-| `3` | Audio Saja | **MP3** kualitas terbaik — mendukung link YouTube & TikTok |
+| `3` | Audio Saja | **MP3** kualitas terbaik — YouTube & TikTok |
 
-### Dependensi otomatis (first-run)
-
-Saat fitur media pertama kali dipakai, aplikasi akan otomatis mendownload (jika belum ada):
-
-| File | Fungsi | Sumber |
-|------|--------|--------|
-| `yt-dlp.exe` | Engine download media | [yt-dlp releases](https://github.com/yt-dlp/yt-dlp/releases) |
-| `ffmpeg.exe` + `ffprobe.exe` | Merge video 1080p & konversi MP3 | [yt-dlp FFmpeg-Builds](https://github.com/yt-dlp/FFmpeg-Builds/releases) |
-
-> **Catatan:** FFmpeg (~80 MB) hanya didownload sekali. Diperlukan untuk YouTube 1080p+suara dan ekstraksi MP3.
+| File Auto-Download | Fungsi |
+|--------------------|--------|
+| `yt-dlp.exe` | Engine download media |
+| `ffmpeg.exe` + `ffprobe.exe` | Merge 1080p & konversi MP3 (~80 MB, sekali download) |
 
 ---
 
-## 🧹 Fitur Cleaner & System (Detail)
+## 🧹 Detail Fitur System & Cleaner
 
-### Premium Disk Cleaner
-- **Temp Cleaner** — `%temp%` & `C:\Windows\Temp`
-- **Recycle Bin** — via `SHEmptyRecycleBin` API
-- **Browser Cache** — Chrome, Edge, Brave (Cache + Code Cache, semua profil)
-- **COD Warzone Cleaner** — hapus folder Activision/Battle.net/Blizzard *(sengaja agresif untuk troubleshooting game)*
+**Disk Cleaner**
+- Temp (`%temp%` + `C:\Windows\Temp`), Recycle Bin, browser cache (Chrome/Edge/Brave)
+- COD Warzone cleaner — hapus folder Activision/Battle.net/Blizzard *(sengaja agresif)*
 
-### Disk & Startup Analyzer
-- Scan folder besar di Program Files (>500 MB) & Downloads (>100 MB)
-- Startup Registry analyzer dengan status enable/disable dari `StartupApproved`
+**Analyzer & Repair**
+- Scan Program Files (>500 MB) & Downloads (>100 MB)
+- Startup Registry + status Enabled/Disabled
+- Flush DNS, Winsock reset, DISM, SFC
+- HWID via `Get-CimInstance` (Win11-friendly, tanpa `wmic`)
+- RAM working set trim
 
-### Network & System Repair
-- Flush DNS + Winsock reset *(restart PC disarankan setelah winsock reset)*
-- DISM + SFC untuk perbaikan file sistem Windows
-- HWID checker via `Get-CimInstance` (kompatibel Windows 11, tidak pakai `wmic` deprecated)
-- RAM working set trim ke semua proses yang bisa diakses
+**Post-Install Downloader (Menu 13)**
+- Discord, DirectX SDK June 2010, NVIDIA App — dengan progress bar & speed (MB/s)
 
-### Post-Install Downloader (Menu 13)
-- Discord (installer resmi Windows)
-- DirectX SDK June 2010 (~571 MB)
-- NVIDIA App
-- Progress bar + indikator kecepatan download (MB/s)
+---
+
+## 📸 Screenshot
+
+> *(Coming soon — tambahkan screenshot menu utama & progress bar di folder `assets/`)*
+
+<!-- Contoh setelah ada gambar:
+<p align="center">
+  <img src="assets/menu-screenshot.png" alt="DWT Utility Menu" width="700">
+</p>
+-->
 
 ---
 
@@ -104,35 +152,31 @@ Saat fitur media pertama kali dipakai, aplikasi akan otomatis mendownload (jika 
 ```
 KerenCleaner/
 ├── Program.cs          # Entry point & routing menu
-├── ConsoleUi.cs        # Banner, animasi idle, progress bar, pesan UI
-├── NativeMethods.cs    # Windows API (Recycle Bin, MessageBox, RAM)
-├── ProcessHelper.cs    # Elevate admin & jalankan perintah sistem
+├── ConsoleUi.cs        # Banner, animasi idle, progress bar
+├── NativeMethods.cs    # Windows API
+├── ProcessHelper.cs    # Elevate admin & perintah sistem
 ├── FileCleaner.cs      # Temp, browser, COD, scan folder
 ├── SystemTools.cs      # DNS, DISM/SFC, HWID, startup, RAM
-├── DownloadService.cs  # Post-install apps, yt-dlp, FFmpeg, MP3
-├── KerenCleaner.csproj
-└── README.md
+├── DownloadService.cs  # Post-install, yt-dlp, FFmpeg, MP3
+└── KerenCleaner.csproj
 ```
 
 ---
 
-## 💻 Cara Menjalankan
+## 💻 Untuk Developer
 
 ### Persyaratan
-- **OS:** Windows 10 / 11 (x64)
-- **Development:** [.NET 10 SDK](https://dotnet.microsoft.com/download) atau versi SDK yang support `net10.0`
-- **Runtime (untuk .exe publish):** Tidak perlu install .NET jika pakai build `self-contained`
+- Windows 10 / 11 (x64)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
 
-### Mode Development
+### Clone & Run
 ```bash
 git clone https://github.com/premdwt/tool-hwid.git
 cd tool-hwid
 dotnet run
 ```
 
-> Jalankan terminal **as Administrator** agar semua fitur berjalan maksimal.
-
-### Build jadi EXE (Single File)
+### Build EXE Manual
 ```bash
 dotnet publish -c Release -r win-x64 --self-contained true ^
   -p:PublishSingleFile=true ^
@@ -141,69 +185,23 @@ dotnet publish -c Release -r win-x64 --self-contained true ^
   -o publish
 ```
 
-Hasilnya: `publish/KerenCleaner.exe` (~36 MB, standalone, tidak perlu install .NET).
-
-**Cara pakai EXE:**
-1. Klik kanan `KerenCleaner.exe` → **Run as administrator**
-2. Pilih menu yang diinginkan
-3. File hasil download (video, MP3, installer) tersimpan di folder yang sama dengan EXE
+Output: `publish/KerenCleaner.exe`
 
 ---
 
-## 📦 Cara Buat GitHub Release
+## 📋 Changelog
 
-GitHub Release dipakai untuk distribusi **versi rilis resmi** — misalnya upload `KerenCleaner.exe` supaya orang bisa download tanpa clone repo.
+### `v1.0.0` — Rilis Pertama (15 Jun 2026)
+- Rilis stabil pertama dengan single-file EXE
+- Disk cleaner lengkap (Temp, Recycle Bin, Browser, COD Warzone)
+- Scan folder besar & Startup Analyzer
+- System repair (DNS, DISM, SFC) + HWID checker
+- Post-install downloader (Discord, DirectX, NVIDIA App)
+- Media downloader: YouTube 1080p+audio, TikTok no WM, MP3
+- Refactor codebase ke modul terpisah
+- Auto-download `yt-dlp` & `FFmpeg` on first use
 
-### Metode 1: Lewat Website GitHub (Paling Mudah)
-
-1. Buka repo: https://github.com/premdwt/tool-hwid
-2. Klik tab **Releases** (sidebar kanan) → **Create a new release**
-3. Isi form:
-   - **Choose a tag:** ketik `v1.0.0` → klik **Create new tag: v1.0.0 on publish**
-   - **Release title:** `DWT Utility v1.0.0`
-   - **Description:** tulis changelog (fitur baru, perbaikan, dll.)
-4. **Attach binaries:** drag & drop file `KerenCleaner.exe` dari folder `publish/`
-5. Klik **Publish release**
-
-Selesai! User bisa download EXE langsung dari halaman Releases.
-
-### Metode 2: Lewat GitHub CLI (`gh`)
-
-```bash
-# Install GitHub CLI dulu: https://cli.github.com/
-
-# Login (sekali saja)
-gh auth login
-
-# Buat release + upload EXE sekaligus
-gh release create v1.0.0 "publish/KerenCleaner.exe" ^
-  --title "DWT Utility v1.0.0" ^
-  --notes "Rilis pertama dengan media downloader 1080p, TikTok, dan MP3."
-```
-
-### Tips Penomoran Versi (Semantic Versioning)
-
-| Versi | Artinya | Contoh |
-|-------|---------|--------|
-| `v1.0.0` | Rilis stabil pertama | Fitur lengkap, siap dipakai |
-| `v1.1.0` | Minor update | Tambah fitur baru |
-| `v1.0.1` | Patch | Bug fix kecil |
-| `v2.0.0` | Major | Perubahan besar / breaking change |
-
-### Workflow Rilis yang Disarankan
-
-```bash
-# 1. Pastikan kode sudah di-push
-git add .
-git commit -m "persiapan rilis v1.0.0"
-git push origin main
-
-# 2. Build EXE terbaru
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish
-
-# 3. Buat release di GitHub (website atau gh CLI)
-gh release create v1.0.0 "publish/KerenCleaner.exe" --title "DWT Utility v1.0.0" --notes "Lihat README untuk daftar fitur."
-```
+[**Lihat semua release →**](https://github.com/premdwt/tool-hwid/releases)
 
 ---
 
@@ -219,21 +217,38 @@ gh release create v1.0.0 "publish/KerenCleaner.exe" --title "DWT Utility v1.0.0"
 
 ---
 
-## 🎨 UI/UX
-- **Idle animation** `[ =  ]` kuning saat menunggu input
-- **Progress bar** visual (`████████--`) untuk proses download & cleaning
-- **Pop-up Windows native** + notifikasi suara setiap tugas sukses
+## ⭐ Dukung Project
+
+Kalau tool ini berguna, kasih **star** di GitHub biar lebih banyak orang yang nemuin:
+
+<p align="center">
+  <a href="https://github.com/premdwt/tool-hwid">
+    <img src="https://img.shields.io/github/stars/premdwt/tool-hwid?style=social" alt="Star on GitHub">
+  </a>
+</p>
+
+**Share link ini:**
+```
+https://github.com/premdwt/tool-hwid
+```
 
 ---
 
-## 📄 Lisensi & Credit
+## 📄 Credit
 
-- **Created by:** P R E M
-- **Engine media:** [yt-dlp](https://github.com/yt-dlp/yt-dlp) & [FFmpeg](https://ffmpeg.org/)
-- Project ini dibuat untuk keperluan pribadi / utilitas Windows. Gunakan dengan tanggung jawab sendiri.
+| | |
+|---|---|
+| **Author** | P R E M |
+| **Media Engine** | [yt-dlp](https://github.com/yt-dlp/yt-dlp) · [FFmpeg](https://ffmpeg.org/) |
+| **Latest Release** | [v1.0.0](https://github.com/premdwt/tool-hwid/releases/tag/v1.0.0) |
+
+Gunakan dengan tanggung jawab sendiri. Project ini dibuat sebagai utilitas Windows open source.
 
 ---
 
 <p align="center">
-  <strong>DWT Utility — Created by P R E M</strong>
+  <strong>DWT Utility — Created by P R E M</strong><br>
+  <a href="https://github.com/premdwt/tool-hwid/releases/latest">Download</a> ·
+  <a href="https://github.com/premdwt/tool-hwid">GitHub</a> ·
+  <a href="https://github.com/premdwt/tool-hwid/releases">Releases</a>
 </p>
