@@ -61,16 +61,8 @@ internal static class ProcessHelper
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardError = true;
 
-            proc.OutputDataReceived += (_, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                    Console.WriteLine(e.Data);
-            };
-            proc.ErrorDataReceived += (_, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                    Console.WriteLine(e.Data);
-            };
+            proc.OutputDataReceived += (_, e) => ConsoleUi.TulisOutputProses(e.Data);
+            proc.ErrorDataReceived += (_, e) => ConsoleUi.TulisOutputProses(e.Data);
         }
 
         proc.Start();

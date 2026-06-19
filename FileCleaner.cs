@@ -82,31 +82,12 @@ internal static class FileCleaner
                 daftarFolder[Path.GetFileName(folder)] = ukuran;
         }
 
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("=========================================================================================");
-        Console.WriteLine($"                             {judul} ({labelMinUkuran})                            ");
-        Console.WriteLine("=========================================================================================");
-        Console.ResetColor();
-        Console.WriteLine($"{ "Nama Folder",-45} | {"Ukuran Folder",-15}");
-        Console.WriteLine("-----------------------------------------------------------------------------------------");
+        var baris = daftarFolder
+            .OrderByDescending(x => x.Value)
+            .Select(x => (x.Key, (double)x.Value / (1024 * 1024 * 1024)))
+            .ToList();
 
-        if (daftarFolder.Count == 0)
-        {
-            Console.WriteLine($"Tidak ada folder di atas {labelMinUkuran}.");
-        }
-        else
-        {
-            foreach (var item in daftarFolder.OrderByDescending(x => x.Value))
-            {
-                double ukuranGb = (double)item.Value / (1024 * 1024 * 1024);
-                Console.WriteLine($"{item.Key,-45} | {ukuranGb:0.00} GB");
-            }
-        }
-
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("=========================================================================================");
-        Console.ResetColor();
+        ConsoleUi.TampilkanTabelScan(judul, labelMinUkuran, baris);
         NativeMethods.ShowInfoPopup($"Pencarian {judul} Selesai!", "Sukses");
     }
 

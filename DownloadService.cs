@@ -11,23 +11,14 @@ internal static class DownloadService
 
     public static void TampilkanMenuPostInstall()
     {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("=================================================");
-        Console.WriteLine("        AUTO-DOWNLOADER (POST-INSTALL APPS)      ");
-        Console.WriteLine("=================================================");
-        Console.ResetColor();
-        Console.WriteLine("[1] Discord (Installer Resmi Windows)");
-        Console.WriteLine("[2] DirectX SDK (June 2010) - Offline Installer 571MB");
-        Console.WriteLine("[3] NVIDIA App (Pengganti GeForce Experience)");
-        Console.WriteLine("[0] Batal / Kembali");
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("=================================================");
-        Console.ResetColor();
-        Console.Write("Pilih aplikasi yang mau disedot (0-3): ");
+        string? subPilihan = ConsoleUi.PilihSubMenu(
+            "AUTO-DOWNLOADER (POST-INSTALL APPS)",
+            ("1", "Discord (Installer Resmi Windows)"),
+            ("2", "DirectX SDK (June 2010) - Offline Installer 571MB"),
+            ("3", "NVIDIA App (Pengganti GeForce Experience)"),
+            ("0", "Batal / Kembali"));
 
-        string subPilihan = ConsoleUi.BacaInputMenuIdle();
-        if (subPilihan == "0")
+        if (subPilihan is null)
             return;
 
         (string url, string namaFile)? target = subPilihan switch
@@ -45,11 +36,9 @@ internal static class DownloadService
         }
 
         string pathSimpan = Path.Combine(Environment.CurrentDirectory, target.Value.namaFile);
-        Console.WriteLine("\n[~] Mengontak Server...");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"[~] Mulai mendownload {target.Value.namaFile}...");
-        Console.WriteLine("[~] Pantau speed dan progres internet lo di bawah ini:");
-        Console.ResetColor();
+        ConsoleUi.TulisInfo("Mengontak server...");
+        ConsoleUi.TulisPeringatan($"Mulai mendownload {target.Value.namaFile}...");
+        ConsoleUi.TulisInfo("Pantau speed dan progres di bawah ini:");
 
         if (DownloadFileDenganProgress(target.Value.url, pathSimpan))
             ConsoleUi.CetakSukses($"{target.Value.namaFile} berhasil didownload!");
@@ -57,29 +46,17 @@ internal static class DownloadService
 
     public static void TampilkanMenuMediaDownloader()
     {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("=================================================");
-        Console.WriteLine("         DWT MEDIA DOWNLOADER SYSTEM             ");
-        Console.WriteLine("=================================================");
-        Console.ResetColor();
-        Console.WriteLine("[1] YouTube (MP4 1080p + Audio)");
-        Console.WriteLine("[2] TikTok Video (Tanpa Watermark/No WM)");
-        Console.WriteLine("[3] Audio Saja (MP3) - YouTube & TikTok");
-        Console.WriteLine("[0] Kembali");
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("=================================================");
-        Console.ResetColor();
-        Console.Write("Pilih jenis download (0-3): ");
+        string? modeMedia = ConsoleUi.PilihSubMenu(
+            "Prem Tools — Media Downloader",
+            ("1", "YouTube (MP4 1080p + Audio)"),
+            ("2", "TikTok Video (Tanpa Watermark/No WM)"),
+            ("3", "Audio Saja (MP3) - YouTube & TikTok"),
+            ("0", "Kembali"));
 
-        string modeMedia = ConsoleUi.BacaInputMenuIdle();
         if (modeMedia is not ("1" or "2" or "3"))
             return;
 
-        Console.CursorVisible = true;
-        Console.Write("\n[+] Masukkan/Paste Link URL Video: ");
-        string? urlVideo = Console.ReadLine();
-        Console.CursorVisible = false;
+        string? urlVideo = ConsoleUi.BacaInputTeks("\n[+] Masukkan/Paste Link URL Video:");
 
         if (string.IsNullOrWhiteSpace(urlVideo))
         {
@@ -119,10 +96,8 @@ internal static class DownloadService
             return;
         }
 
-        Console.WriteLine("\n[~] Sedang download YouTube 1080p + audio (merge via FFmpeg)...");
-        Console.ForegroundColor = ConsoleColor.DarkGray;
-        Console.WriteLine("[i] Pertama kali butuh download FFmpeg (~80MB). Proses merge butuh waktu sedikit lebih lama.");
-        Console.ResetColor();
+        ConsoleUi.TulisInfo("Sedang download YouTube 1080p + audio (merge via FFmpeg)...");
+        ConsoleUi.TulisLog("Pertama kali butuh download FFmpeg (~80MB). Proses merge butuh waktu sedikit lebih lama.");
 
         string format = "bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio/best[height<=1080]/best";
         string arg =
@@ -134,7 +109,7 @@ internal static class DownloadService
 
     private static void DownloadTikTokVideo(string ytDlpPath, string outputTemplate, string urlVideo)
     {
-        Console.WriteLine("\n[~] Sedang mengambil video TikTok Tanpa Watermark...");
+        ConsoleUi.TulisInfo("Sedang mengambil video TikTok Tanpa Watermark...");
         string arg = $"--no-mtime -o \"{outputTemplate}\" \"{urlVideo}\"";
         ProcessHelper.JalankanPerintahSistem(ytDlpPath, arg, false);
         ConsoleUi.CetakSukses("Video TikTok Tanpa Watermark berhasil diamankan!");
@@ -149,10 +124,8 @@ internal static class DownloadService
             return;
         }
 
-        Console.WriteLine("\n[~] Sedang mengekstrak audio & konversi ke MP3...");
-        Console.ForegroundColor = ConsoleColor.DarkGray;
-        Console.WriteLine("[i] Mendukung link YouTube & TikTok. Kualitas audio: terbaik.");
-        Console.ResetColor();
+        ConsoleUi.TulisInfo("Sedang mengekstrak audio & konversi ke MP3...");
+        ConsoleUi.TulisLog("Mendukung link YouTube & TikTok. Kualitas audio: terbaik.");
 
         string arg =
             $"--no-playlist -x --audio-format mp3 --audio-quality 0 --ffmpeg-location \"{ffmpegDir}\" --no-mtime -o \"{outputTemplate}\" \"{urlVideo}\"";
@@ -170,9 +143,7 @@ internal static class DownloadService
         if (File.Exists(ffmpegExe) && File.Exists(ffprobeExe))
             return appDir;
 
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"\n[!] Mendownload FFmpeg untuk {tujuan}...");
-        Console.ResetColor();
+        ConsoleUi.TulisPeringatan($"Mendownload FFmpeg untuk {tujuan}...");
 
         const string urlZip = "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip";
         string zipPath = Path.Combine(appDir, "ffmpeg-download-temp.zip");
@@ -222,9 +193,7 @@ internal static class DownloadService
 
         if (!File.Exists(pathExe))
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[!] Mendownload core engine media downloader...");
-            Console.ResetColor();
+            ConsoleUi.TulisPeringatan("Mendownload core engine media downloader...");
 
             const string urlCore = "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe";
             DownloadFileDenganProgress(urlCore, pathExe);
@@ -260,7 +229,7 @@ internal static class DownloadService
                 int read = contentStream.Read(buffer, 0, buffer.Length);
                 if (read == 0)
                 {
-                    Console.WriteLine();
+                    ConsoleUi.SelesaiProgressDownload();
                     break;
                 }
 
@@ -271,10 +240,7 @@ internal static class DownloadService
                 {
                     double progress = (double)totalRead / totalBytes.Value * 100;
                     double speed = (totalRead / 1024.0 / 1024.0) / timer.Elapsed.TotalSeconds;
-                    const int barSize = 30;
-                    int filled = (int)(progress / 100 * barSize);
-                    string bar = new string('█', filled) + new string('-', barSize - filled);
-                    Console.Write($"\r[{bar}] {progress:0.00}% | Speed: {speed:0.00} MB/s ");
+                    ConsoleUi.AnimasiProgressDownload("Downloading", progress, speed);
                 }
             }
 

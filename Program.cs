@@ -8,26 +8,22 @@ class Program
 
     static void Main()
     {
+        ConsoleUi.Inisialisasi();
+
         if (!ProcessHelper.IsAdministrator())
         {
-            Console.WriteLine("Meminta akses Administrator...");
+            ConsoleUi.TampilkanPesanElevasi();
             ProcessHelper.CobaElevateAdmin();
             return;
         }
 
-        Console.Title = "DWT Utility - Created by P R E M";
-
         while (true)
         {
-            ConsoleUi.TampilkanBanner();
-            ConsoleUi.TampilkanMenuUtama();
-            Console.Write("Pilih menu eksekusi (0-14): ");
-
-            string pilihan = ConsoleUi.BacaInputMenuIdle();
-            if (pilihan == "0")
+            string? pilihan = ConsoleUi.PilihMenuUtama();
+            if (pilihan is null)
                 break;
 
-            Console.WriteLine();
+            ConsoleUi.MulaiPanelKerja($"Menu {pilihan}");
             EksekusiMenu(pilihan);
             ConsoleUi.TungguKembaliKeMenu();
         }

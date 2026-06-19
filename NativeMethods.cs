@@ -17,5 +17,5 @@ internal static class NativeMethods
     public static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
 
     public static void ShowInfoPopup(string message, string title) =>
-        MessageBox(IntPtr.Zero, message, $"DWT Utility - {title}", MB_ICONINFORMATION);
+        MessageBox(IntPtr.Zero, message, $"Prem Tools - {title}", MB_ICONINFORMATION);
 }

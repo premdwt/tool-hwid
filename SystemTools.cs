@@ -15,14 +15,12 @@ internal static class SystemTools
 
     public static void JalankanSystemRepair()
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("[!] PERINGATAN: Proses ini memakan waktu 5 - 20 menit.");
-        Console.ResetColor();
+        ConsoleUi.TulisPeringatan("Proses ini memakan waktu 5 - 20 menit.");
 
-        Console.WriteLine("\nMenjalankan DISM RestoreHealth...");
+        ConsoleUi.TulisInfo("Menjalankan DISM RestoreHealth...");
         ProcessHelper.JalankanPerintahSistem("DISM", "/Online /Cleanup-Image /RestoreHealth", false);
 
-        Console.WriteLine("\nMenjalankan SFC Scannow...");
+        ConsoleUi.TulisInfo("Menjalankan SFC Scannow...");
         ProcessHelper.JalankanPerintahSistem("sfc", "/scannow", false);
 
         ConsoleUi.CetakSukses("System Repair Selesai!");
@@ -32,18 +30,13 @@ internal static class SystemTools
     {
         ConsoleUi.AnimasiProgressBar("[~] Mengumpulkan HWID...");
 
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("\n=================== INFO HWID LO ===================");
-        Console.ResetColor();
+        ConsoleUi.TulisInfo("INFO HWID");
 
         JalankanPowerShell("Write-Host '--- Motherboard ---'; Get-CimInstance Win32_BaseBoard | Format-List Manufacturer,Product,Version,SerialNumber");
         JalankanPowerShell("Write-Host '--- Storage ---'; Get-CimInstance Win32_DiskDrive | Format-List Model,SerialNumber");
         JalankanPowerShell("Write-Host '--- MAC Address ---'; Get-CimInstance Win32_NetworkAdapterConfiguration -Filter 'IPEnabled=True' | Format-List Description,MACAddress");
         JalankanPowerShell("Write-Host '--- System UUID ---'; Get-CimInstance Win32_ComputerSystemProduct | Format-List UUID");
 
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("====================================================");
-        Console.ResetColor();
         NativeMethods.ShowInfoPopup("Data HWID berhasil dimuat!", "Sukses");
     }
 
@@ -69,28 +62,19 @@ internal static class SystemTools
     {
         ConsoleUi.AnimasiProgressBar("[~] Membaca Windows Registry...");
 
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("=========================================================================================");
-        Console.WriteLine("                        STARTUP ANALYZER (Aplikasi Booting)                              ");
-        Console.WriteLine("=========================================================================================");
-        Console.ResetColor();
-        Console.WriteLine($"{ "Status",-12} | {"Nama Aplikasi",-25} | {"Lokasi/Target",-45}");
-        Console.WriteLine("-----------------------------------------------------------------------------------------");
+        var baris = new List<(string Status, string Nama, string Lokasi)>();
+        KumpulkanStartupRegistry(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Run", baris);
+        KumpulkanStartupRegistry(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\Run", baris);
 
-        BacaStartupRegistry(Registry.CurrentUser, @"Software\Microsoft\Windows\CurrentVersion\Run");
-        BacaStartupRegistry(Registry.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\Run");
-
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("=========================================================================================");
-        Console.ResetColor();
+        ConsoleUi.TampilkanTabelStartup(baris);
         NativeMethods.ShowInfoPopup("Analisis Startup Registry selesai!", "Sukses");
     }
 
     private static void JalankanPowerShell(string command) =>
         ProcessHelper.JalankanPerintahSistem("powershell", $"-NoProfile -ExecutionPolicy Bypass -Command \"{command}\"", false);
 
-    private static void BacaStartupRegistry(RegistryKey baseKey, string runPath)
+    private static void KumpulkanStartupRegistry(
+        RegistryKey baseKey, string runPath, List<(string Status, string Nama, string Lokasi)> baris)
     {
         using RegistryKey? runKey = baseKey.OpenSubKey(runPath);
         if (runKey is null)
@@ -102,13 +86,7 @@ internal static class SystemTools
             string status = CekStatusStartupApproved(baseKey, appName);
             string formatNama = appName.Length > 23 ? appName[..20] + "..." : appName;
             string formatData = data.Length > 43 ? data[..40] + "..." : data;
-
-            Console.ForegroundColor = status == "Enabled"
-                ? ConsoleColor.Green
-                : ConsoleColor.DarkGray;
-
-            Console.WriteLine($"[{status,-10}] | {formatNama,-25} | {formatData,-45}");
-            Console.ResetColor();
+            baris.Add((status, formatNama, formatData));
         }
     }
 

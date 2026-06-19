@@ -6,6 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SupportedOSPlatform>windows</SupportedOSPlatform>
+    <AssemblyName>PremTools</AssemblyName>
+    <RootNamespace>PremTools</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Spectre.Console" Version="0.57.0" />
+  </ItemGroup>
 
 </Project>

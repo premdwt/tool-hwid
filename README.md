@@ -1,4 +1,4 @@
-# ⚡ DWT Utility (KerenCleaner)
+# ⚡ Prem Tools
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/premdwt/tool-hwid?style=for-the-badge&label=Release" alt="Latest Release">
@@ -28,8 +28,8 @@
 
 | | |
 |---|---|
-| **Latest Release** | [**Download KerenCleaner.exe**](https://github.com/premdwt/tool-hwid/releases/latest) |
-| **Versi Saat Ini** | `v1.0.0` |
+| **Latest Release** | [**Download Prem Tools**](https://github.com/premdwt/tool-hwid/releases/latest) |
+| **Versi Saat Ini** | `v2.0.0` |
 | **Ukuran** | ~36 MB (self-contained single file) |
 | **Butuh** | Windows 10/11 x64 + Run as Administrator |
 
@@ -37,15 +37,15 @@
 
 <p align="center">
   <a href="https://github.com/premdwt/tool-hwid/releases/latest">
-    <img src="https://img.shields.io/badge/Download-KerenCleaner.exe-2ea44f?style=for-the-badge&logo=github" alt="Download EXE">
+    <img src="https://img.shields.io/badge/Download-Prem%20Tools-2ea44f?style=for-the-badge&logo=github" alt="Download EXE">
   </a>
 </p>
 
 ---
 
-## 📌 Apa itu DWT Utility?
+## 📌 Apa itu Prem Tools?
 
-**DWT Utility** (project: `KerenCleaner`) adalah aplikasi **CLI** berbasis **C# (.NET 10.0)** untuk merawat, mengoptimalkan, dan mengotomasi Windows — dari bersih-bersih sampah disk, perbaikan sistem, download installer pasca-reinstall, hingga download media YouTube & TikTok.
+**Prem Tools** adalah aplikasi **CLI** berbasis **C# (.NET 10.0)** untuk merawat, mengoptimalkan, dan mengotomasi Windows — dari bersih-bersih sampah disk, perbaikan sistem, download installer pasca-reinstall, hingga download media YouTube & TikTok.
 
 - Berjalan **native** via API Windows (`shell32`, `user32`, Registry, dll.)
 - Auto-request hak **Administrator** saat pertama dijalankan
@@ -57,7 +57,7 @@
 ## 🚀 Cara Pakai Cepat
 
 ```
-1. Download KerenCleaner.exe  →  tab Releases
+1. Download Prem Tools  →  tab Releases
 2. Klik kanan                 →  Run as administrator
 3. Pilih menu (0–14)          →  selesai!
 ```
@@ -141,7 +141,7 @@ Engine: **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** + **[FFmpeg](https://ffmp
 
 <!-- Contoh setelah ada gambar:
 <p align="center">
-  <img src="assets/menu-screenshot.png" alt="DWT Utility Menu" width="700">
+  <img src="assets/menu-screenshot.png" alt="Prem Tools Menu" width="700">
 </p>
 -->
 
@@ -150,7 +150,7 @@ Engine: **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** + **[FFmpeg](https://ffmp
 ## 🏗️ Struktur Project
 
 ```
-KerenCleaner/
+PremTools/
 ├── Program.cs          # Entry point & routing menu
 ├── ConsoleUi.cs        # Banner, animasi idle, progress bar
 ├── NativeMethods.cs    # Windows API
@@ -158,7 +158,7 @@ KerenCleaner/
 ├── FileCleaner.cs      # Temp, browser, COD, scan folder
 ├── SystemTools.cs      # DNS, DISM/SFC, HWID, startup, RAM
 ├── DownloadService.cs  # Post-install, yt-dlp, FFmpeg, MP3
-└── KerenCleaner.csproj
+└── PremTools.csproj
 ```
 
 ---
@@ -172,7 +172,7 @@ KerenCleaner/
 ### Clone & Run
 ```bash
 git clone https://github.com/premdwt/tool-hwid.git
-cd tool-hwid
+cd PremTools
 dotnet run
 ```
 
@@ -185,11 +185,17 @@ dotnet publish -c Release -r win-x64 --self-contained true ^
   -o publish
 ```
 
-Output: `publish/KerenCleaner.exe`
+Output: `publish/PremTools.exe`
 
 ---
 
 ## 📋 Changelog
+
+### `v2.0.0` — Rebrand Prem Tools (20 Jun 2026)
+- Rebrand dari DWT Utility / KerenCleaner menjadi **Prem Tools**
+- Rename project `KerenCleaner.csproj` → `PremTools.csproj`
+- Output EXE: `PremTools.exe`
+- Perbaikan UI konsol & refactor modul
 
 ### `v1.0.0` — Rilis Pertama (15 Jun 2026)
 - Rilis stabil pertama dengan single-file EXE
@@ -240,14 +246,14 @@ https://github.com/premdwt/tool-hwid
 |---|---|
 | **Author** | P R E M |
 | **Media Engine** | [yt-dlp](https://github.com/yt-dlp/yt-dlp) · [FFmpeg](https://ffmpeg.org/) |
-| **Latest Release** | [v1.0.0](https://github.com/premdwt/tool-hwid/releases/tag/v1.0.0) |
+| **Latest Release** | [v2.0.0](https://github.com/premdwt/tool-hwid/releases/tag/v2.0.0) |
 
 Gunakan dengan tanggung jawab sendiri. Project ini dibuat sebagai utilitas Windows open source.
 
 ---
 
 <p align="center">
-  <strong>DWT Utility — Created by P R E M</strong><br>
+  <strong>Prem Tools</strong><br>
   <a href="https://github.com/premdwt/tool-hwid/releases/latest">Download</a> ·
   <a href="https://github.com/premdwt/tool-hwid">GitHub</a> ·
   <a href="https://github.com/premdwt/tool-hwid/releases">Releases</a>
